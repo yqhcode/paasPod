@@ -42,7 +42,7 @@ func (p *PodRepository) CreatePod(pod *model.Pod) (int64, error) {
 func (p *PodRepository) DeletePodByID(i int64) error {
 	tx := p.mysqlDB.Begin()
 	defer func() {
-		if recover() != nil {
+		if err := recover(); err != nil {
 			tx.Rollback()
 		}
 	}()
